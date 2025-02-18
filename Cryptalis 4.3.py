@@ -13,7 +13,7 @@ letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
 # Hashing function for keys
 def hash_key(key):
     return int(hashlib.sha256(str(key).encode()).hexdigest(), 16) % (10 ** 40)
-
+zx
 
 # Encryption function
 def ec(text, key, key2, wordcounter):
