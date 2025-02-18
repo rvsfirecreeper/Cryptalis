@@ -70,3 +70,4 @@ def choice():
 result = choice()
 if result:
     print(result)
+input()
