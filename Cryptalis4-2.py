@@ -21,7 +21,7 @@ def ec(text, key, key2, wordcounter):
                 output += letters[(k + key - math.ceil(key2 // (i + 1)) + wordcounter) % len(letters)]
                 break
         wordcounter += i  # Non determination
-        wordcounter = wordcounter % 26
+        wordcounter = wordcounter % abs(wordcounter - key + key2)
     return output
 
 # Decryption function
@@ -36,7 +36,7 @@ def dc(encryptedtext, key, key2, wordcounter):
                 output += letters[(k - key + math.ceil(key2 // (i + 1)) - wordcounter) % len(letters)]
                 break
         wordcounter += i
-        wordcounter = wordcounter % 26
+        wordcounter = wordcounter % abs(wordcounter - key + key2)
     return output
 
 # input
