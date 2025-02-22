@@ -9,7 +9,8 @@ Enter ec for encryption and dc for decryption.
 Enter a text containing standard letters, numbers, and symbols. Most characters that use alt codes are **not** supported
 4.1 is the first public version. It is called this because it went through other unpublished versions first.
 
-how to customize
+How to customize
+
 Adjust variables on line 4+5
 Adjust formula on line 47 and 28.
 Please do not submit pull requests or issues without descriptions.
