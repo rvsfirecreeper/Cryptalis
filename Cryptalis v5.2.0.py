@@ -13,11 +13,11 @@ letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
 
 # Hashing function for keys
 def hash_key(key):
-    return (int(hashlib.sha256(str(key).encode()).hexdigest(), 16) % (keymax))+1
+    return (int(hashlib.sha256(str(key).encode()).hexdigest(), 16) % keymax)+1
 
 
 # Encryption function
-def ec(text, key, key2, wordcounter, iterations):
+def ec(text, key, key2, position, iterations):
     key = hash_key(key)
     key2 = hash_key(key2)
     output = ""
@@ -25,10 +25,10 @@ def ec(text, key, key2, wordcounter, iterations):
         for j in range(len(text)):
             for k in range(len(letters)):
                 if text[j] == letters[k]:
-                    output += letters[(k + key - math.ceil(key2 // (j + 1)) + wordcounter) % len(letters)]
+                    output += letters[(k + key - math.ceil(key2 // (j + 1)) + position) % len(letters)]
                     break
-            wordcounter += j  # Non determination
-            wordcounter = wordcounter % abs(wordcounter - key + key2)
+            position += j  # Non determination
+            position = position % abs(position - key + key2)
         text = output
         if not i + 1 == iterations:
             output = ""
@@ -36,7 +36,7 @@ def ec(text, key, key2, wordcounter, iterations):
 
 
 # Decryption function
-def dc(encryptedtext, key, key2, wordcounter, iterations):
+def dc(encryptedtext, key, key2, position, iterations):
     key = hash_key(key)
     key2 = hash_key(key2)
     output = ""
@@ -44,10 +44,10 @@ def dc(encryptedtext, key, key2, wordcounter, iterations):
         for j in range(len(encryptedtext)):
             for k in range(len(letters)):
                 if encryptedtext[j] == letters[k]:
-                    output += letters[(k - key + math.ceil(key2 // (j + 1)) - wordcounter) % len(letters)]
+                    output += letters[(k - key + math.ceil(key2 // (j + 1)) - position) % len(letters)]
                     break
-            wordcounter += j
-            wordcounter = wordcounter % abs(wordcounter - key + key2)
+            position += j
+            position = position % abs(position - key + key2)
         encryptedtext=output
         if not i+1 == iterations:
             output=""
@@ -68,19 +68,19 @@ def choice():
         iterations=int(input("Enter key (3): "))
         if iterations > iterationmax:
             iterations = iterationmax
-    except:
-        print("Please enter a number or ensure Key 1 > Key 2. Make sure key 1 and 2 are under 10**40 and key 3 is under 5000")
+    except ValueError as e:
+        print(f"Error:{e}. Please enter a number or ensure Key 1 > Key 2. Make sure key 1 and 2 are under 10**40 and key 3 is under 5000")
         return choice()
 
     user_choice = input("Encrypt (ec) or Decrypt (dc)? ").lower()
     if user_choice == "ec":
         text_to_encrypt = input("Enter text to encrypt: ")
         start = time.time()
-        return "It took " + str(time.time()-start) + " to encrypt. the text is:" + ec(text_to_encrypt, key, key2, 1, iterations)
+        return f"It took {time.time()-start} to encrypt. the text is:{ec(text_to_encrypt, key, key2, 1, iterations)}"
     elif user_choice == "dc":
         text_to_decrypt = input("Enter text to decrypt: ")
         start = time.time()
-        return "It took " + str(time.time()-start) + " to decrypt. the text is:" + dc(text_to_decrypt, key, key2, 1, iterations)
+        return f"It took {time.time()-start} to decrypt. the text is:{dc(text_to_decrypt, key, key2, 1, iterations)}"
     else:
         print("Invalid choice")
         return choice()
