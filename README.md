@@ -15,7 +15,6 @@ Adjust variables on line 6 and 7
 Adjust formula on line 45 and 29.
 Please do not submit pull requests or issues without descriptions.
 
-Contribution Rules
 Rules for Contributions
 All Issues and Pull Requests must have descriptions.
 They must follow Semantic Versioning.
