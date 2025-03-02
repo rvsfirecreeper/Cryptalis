@@ -11,6 +11,6 @@ Enter a text containing standard letters, numbers, and symbols. Most characters 
 
 How to customize
 
-Adjust variables on line 4+5
-Adjust formula on line 47 and 28.
+Adjust variables on line 6 and 7
+Adjust formula on line 45 and 29.
 Please do not submit pull requests or issues without descriptions.
