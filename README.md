@@ -16,6 +16,7 @@ Adjust formula on line 45 and 29.
 Please do not submit pull requests or issues without descriptions.
 
 Rules for Contributions
+
 Python Only.
 All Issues and Pull Requests must have descriptions.
 They must follow Semantic Versioning.
