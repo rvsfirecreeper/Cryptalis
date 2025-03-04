@@ -9,7 +9,7 @@ iterationmax = 5000
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
            "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
            "S", "T", "U", "V", "W", "X", "Y", "Z", ",", ".", "?", "!", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-           " ", "'", "\"", "-", "_", "(", ")", "[", "]", "{", "}", "/", "\\", "*", "&", "^", "%", "$", "#", "@", "=",
+           " ", ":", "'", "\"", "-", "_", "(", ")", "[", "]", "{", "}", "/", "\\", "*", "&", "^", "%", "$", "#", "@", "=",
            "+", "`", "~", "<", ">", "↑", "↓","→","←"]
 character_to_index = {char: idx for idx, char in enumerate(letters)}
 
@@ -55,28 +55,29 @@ def dc(encryptedtext, key, key2, position, iterations):
 def choice():
     try:
         key = int(input("Enter key (1): "))
-        if key > keymax:
-            key = keymax
         key2 = int(input("Enter key (2): "))
+        iterations = int(input("Enter key (3): "))
+        if key > keymax:
+            raise ValueError("Key 1 must be less than 10**40")
         if key2 > keymax:
-            key2 = keymax
+            raise ValueError("Key 2 must be less than 10**40")
         if key <= key2:
             raise ValueError("Key 1 must be greater than Key 2")
-        iterations=int(input("Enter key (3): "))
         if iterations > iterationmax:
-            iterations = iterationmax
+            raise ValueError(f"Key 3 must be less than {iterationmax}")
+        if key or key2 or iterations < 0:
+            raise ValueError("Keys must be positive")
     except ValueError as e:
         print(f"Error: {e}. Please enter a number or ensure Key 1 > Key 2. Make sure key 1 and 2 are under 10**40 and key 3 is under 5000")
         return choice()
 
     user_choice = input("Encrypt (ec) or Decrypt (dc)? ").lower()
+    text = input("Enter text to en/decrypt: ")
     start = time.time()
     if user_choice == "ec":
-        text_to_encrypt = input("Enter text to encrypt: ")
-        return f"It took {time.time()-start} to encrypt. the text is:{ec(text_to_encrypt, key, key2, 1, iterations)}"
+        return f"It took {time.time()-start} to encrypt. the text is:{ec(text, key, key2, 1, iterations)}"
     elif user_choice == "dc":
-        text_to_decrypt = input("Enter text to decrypt: ")
-        return f"It took {time.time()-start} to decrypt. the text is:{dc(text_to_decrypt, key, key2, 1, iterations)}"
+        return f"It took {round(time.time()-start)} seconds to decrypt. the text is:{dc(text, key, key2, 1, iterations)}"
     else:
         print("Invalid choice")
         return choice()
