@@ -1,23 +1,26 @@
 # Cryptalis
-Strong, Lightweight encryptor for hobbyists and designed to be modified.
-Uses multiple keys and variables for complexity and security. 
-Not designed for efficiency.
-To use the program, run Cryptalisx-y.py
-enter 2 integers for the 2 keys, each less than 10^40
-For Key 3, make sure it is less than 5000
-Enter ec for encryption and dc for decryption.
-Enter a text containing standard letters, numbers, and symbols. Most characters that use alt codes are **not** supported
-4.1 is the first public version. It is called this because it went through other unpublished versions first.
 
-How to customize
+## Table of Contents
 
-Adjust variables on line 6 and 7
-Adjust formula on line 45 and 29.
-Please do not submit pull requests or issues without descriptions.
+- [Introduction](#introduction)  
+- [User Guide](#user-guide)  
+- [Contributing](#contributing)  
+  - [Pull Request Policy](#pull-request-policy)  
+  - [Terminology](#terminology)  
 
-Rules for Contributions
+## Introduction  
+Cryptalis is a multi-key Python encryptor designed to be **lightweight**, **customizable**, and **efficient**.  
 
-Python Only.
-All Issues and Pull Requests must have descriptions.
-They must follow Semantic Versioning.
-That's It!
+## User Guide  
+1. Download the latest release.  
+2. Unzip the installation.  
+3. Open `Cryptalis_vx.y.z.py`.  
+4. Follow the prompts to encrypt and decrypt your text.  
+
+## Contributing  
+
+### Pull Request Policy  
+Do not submit changes that are [Minor Edits](#terminology).  
+
+### Terminology  
+Simple variable, formula, commenting, and formatting changes are considered **Minor Edits**. Minor Edits **are** encouraged but should not be committed to the repository.  
