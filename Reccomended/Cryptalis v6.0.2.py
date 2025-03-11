@@ -65,7 +65,7 @@ def choice():
             raise ValueError("Key 1 must be greater than Key 2")
         if iterations > iterationmax:
             raise ValueError(f"Key 3 must be less than {iterationmax}")
-        if key or key2 or iterations < 0:
+        if iterations  < 0 or key < 0 or key2 < 0:
             raise ValueError("Keys must be positive")
     except ValueError as e:
         print(f"Error: {e}. Please enter a number or ensure Key 1 > Key 2. Make sure key 1 and 2 are under 10**40 and key 3 is under 5000")
