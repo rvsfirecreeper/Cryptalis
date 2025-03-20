@@ -1,3 +1,8 @@
+**This repository is undergoing a restructure.**
+This passion project has become too big for my old messy versioning system. THis uses no APIs so I will **not** be using Semantic versioning but rather major.minor.patch
+
+
+
 # Cryptalis
 
 ## Table of Contents
