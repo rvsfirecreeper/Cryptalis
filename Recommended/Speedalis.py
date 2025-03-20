@@ -19,18 +19,22 @@ def ecdc(text, key, key2, key3, position, ende):
     key = hash_key(key)
     key2 = hash_key(key2)
     key3=hash_key(key3)
+    # Precomputed Values
+    pc1 = (ende * key)
+    pc2 = key - key2
     output = []
     for i in range(len(text)):
-        #Chacter Value
+        #Character Value
         charval=character_to_index[text[i]]
+        listlen = len(letters)
         #Formula
-        outletter=(charval + (ende * key) - ende * (math.ceil(key2 // (i + key3))) + (ende * position)) % len(letters)
+        outletter=(charval + pc1 - ende * (math.ceil(key2 // (i + key3))) + (ende * position)) % listlen
         output.append(letters[outletter])
         #Change of variable
         if ende == 1:
-            position = (position + charval + key3) % abs(position + key - key2)
+            position = (position + charval + key3) % abs(position + pc2)
         else:
-            position = (position + outletter + key3) % abs(position + key - key2)
+            position = (position + outletter + key3) % abs(position + pc2)
     output = "".join(output)
     return output
 
