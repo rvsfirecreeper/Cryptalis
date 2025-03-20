@@ -17,39 +17,25 @@ character_to_index = {char: idx for idx, char in enumerate(letters)}
 def hash_key(key):
     return int(hashlib.sha256(str(key).encode()).hexdigest(), 16)
 
-
-# Encryption function
-def ec(text, key, key2, position, iterations):
+# En/Decryption function
+def ecdc(encryptedtext, key, key2, position, iterations, ende):
     key = hash_key(key)
     key2 = hash_key(key2)
-    output = ""
-    for i in range(iterations):
-        for j in range(len(text)):
-            k=character_to_index[text[j]]
-            output += letters[(k + key - math.ceil(key2 // (j + 1)) + position) % len(letters)]
-            position = (position + j) % abs(position - key + key2) # Variability
-        text = output
-        if not i + 1 == iterations:
-            output = ""
-    return output
-
-
-# Decryption function
-def dc(encryptedtext, key, key2, position, iterations):
-    key = hash_key(key)
-    key2 = hash_key(key2)
-    output = ""
+    output = []
     for i in range(iterations):
         for j in range(len(encryptedtext)):
             k=character_to_index[encryptedtext[j]]
-            output += letters[(k - key + math.ceil(key2 // (j + 1)) - position) % len(letters)]
-            position += j
-            position = position % abs(position - key + key2)
+            outletter = letters[(k - (ende*key) + (ende*math.ceil(key2 // (j + 1))) - ende*position) % len(letters)]
+            output.append(outletter)
+            if ende == 1:
+                position = (position + iterations + k) % abs(position - key + key2)
+            else:
+                position = (position + iterations + outletter) % abs(position - key + key2)
+
         encryptedtext=output
         if not i+1 == iterations:
             output=""
     return output
-
 
 # User Input Function
 def choice():
@@ -57,6 +43,7 @@ def choice():
         key = int(input("Enter key (1): "))
         key2 = int(input("Enter key (2): "))
         iterations = int(input("Enter key (3): "))
+        key4 = int(input("Enter key (4): "))
         if key > keymax:
             raise ValueError("Key 1 must be less than 10**40")
         if key2 > keymax:
@@ -75,9 +62,9 @@ def choice():
     text = input("Enter text to en/decrypt: ")
     start = time.time()
     if user_choice == "ec":
-        return f"It took {time.time()-start} to encrypt. the text is:{ec(text, key, key2, 1, iterations)}"
+        return f"It took {time.time()-start} to encrypt. the text is:{ecdc(text, key, key2, key4, iterations,1)}"
     elif user_choice == "dc":
-        return f"It took {round(time.time()-start)} seconds to decrypt. the text is:{dc(text, key, key2, 1, iterations)}"
+        return f"It took {round(time.time()-start)} seconds to decrypt. the text is:{ecdc(text, key, key2, key4, iterations, -1)}"
     else:
         print("Invalid choice")
         return choice()
