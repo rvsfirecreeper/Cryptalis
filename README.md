@@ -14,7 +14,7 @@ Cryptalis is a multi-key Python encryptor designed to be **lightweight**, **cust
 ## User Guide  
 1. Download the latest release.  
 2. Unzip the installation.  
-3. Open `Cryptalis_v[x.y.z].py`.  
+3. Open `Speedalis_[x.y.z].py` or `Italis_[x.y.z].py`.  
 4. Follow the prompts to encrypt and decrypt your text.  
 
 ## Contributing  
