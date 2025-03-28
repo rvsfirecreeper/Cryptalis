@@ -2,6 +2,7 @@
 import hashlib
 import math
 import time
+import argon2
 # Maxes for key 1, 2, and 3
 keymax = 10**40
 iterationmax = 5000
@@ -15,12 +16,14 @@ character_to_index = {char: idx for idx, char in enumerate(letters)}
 
 # Hashing function for keys
 def hash_key(key):
-    return int(hashlib.sha256(str(key).encode()).hexdigest(), 16)
+    salt = hashlib.sha256(str(key).encode()).digest()[:16]
+    return int.from_bytes(argon2.low_level.hash_secret_raw(secret=key.encode(), salt=salt, type=argon2.Type.ID, time_cost=4, memory_cost=2 ** 16, parallelism=4, hash_len=32))
 
 # En/Decryption function
 def ecdc(encryptedtext, key, key2, position, iterations, ende):
     key = hash_key(key)
     key2 = hash_key(key2)
+    position = hash_key(position)
     output = []
     for i in range(iterations):
         for j in range(len(encryptedtext)):
@@ -34,26 +37,24 @@ def ecdc(encryptedtext, key, key2, position, iterations, ende):
 
         encryptedtext=output
         if not i+1 == iterations:
-            output=""
+            output=[]
+    output = "".join(output)
     return output
 
 # User Input Function
 def choice():
     try:
-        key = int(input("Enter key (1): "))
-        key2 = int(input("Enter key (2): "))
+        key = (input("Enter key (1): "))
+        key2 = (input("Enter key (2): "))
         iterations = int(input("Enter key (3): "))
-        key4 = int(input("Enter key (4): "))
-        if key > keymax:
-            raise ValueError("Key 1 must be less than 10**40")
-        if key2 > keymax:
-            raise ValueError("Key 2 must be less than 10**40")
-        if key <= key2:
-            raise ValueError("Key 1 must be greater than Key 2")
+        key4 = (input("Enter key (4): "))
+        # Catch errors
+        if key == key2:
+            raise ValueError("Key 1 must be different than Key 2")
         if iterations > iterationmax:
             raise ValueError(f"Key 3 must be less than {iterationmax}")
-        if iterations  < 0 or key < 0 or key2 < 0:
-            raise ValueError("Keys must be positive")
+        if iterations  < 0:
+            raise ValueError("Iterations must be positive")
     except ValueError as e:
         print(f"Error: {e}. Please enter a number or ensure Key 1 > Key 2. Make sure key 1 and 2 are under 10**40 and key 3 is under 5000")
         return choice()
