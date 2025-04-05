@@ -2,7 +2,7 @@
 import hashlib
 import math
 import time
-
+# Dependencies
 import argon2
 # Maxes for key 1, 2, and 3
 keymax = 10**40
