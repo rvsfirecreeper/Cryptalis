@@ -14,12 +14,12 @@ Cryptalis is a multi-key Python encryptor designed to be **lightweight**, **cust
 ## User Guide  
 ### Prerequisites
 1. Get [pip](https://github.com/pypa/pip) if you don't have it
-2. Run `pip install requirements.txt` in a terminal to install all dependencies
 ### Installation
 1. Download the latest release.  
-2. Unzip the installation.  
-3. Open `Speedalis_[x.y.z].py` or `Italis_[x.y.z].py`.  
-4. Follow the prompts to encrypt and decrypt your text.  
+2. Unzip the installation.
+3. Run `pip install requirements.txt` in a terminal to install all dependencies
+4. Open `Speedalis_[x.y.z].py` or `Italis_[x.y.z].py`.  
+5. Follow the prompts to encrypt and decrypt your text.  
 
 ## Contributing  
 
