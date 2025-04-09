@@ -17,7 +17,7 @@ Cryptalis is a multi-key Python encryptor designed to be **lightweight**, **cust
 ### Installation
 1. Download the latest release.  
 2. Unzip the installation.
-3. Run `pip install requirements.txt` in a terminal to install all dependencies. Make sure you are in the Cryptalis directory when you run this command.
+3. Run `pip install -r requirements.txt` in a terminal to install all dependencies. Make sure you are in the Cryptalis directory when you run this command.
 4. Open `Speedalis_[x.y.z].py` or `Italis_[x.y.z].py`.  
 5. Follow the prompts to encrypt and decrypt your text.  
 
