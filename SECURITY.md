@@ -11,4 +11,4 @@ Goes for both Speedalis and Italis, they are updated in parallel.
 
 ## Reporting a Vulnerabity
 
-Create an issue with the tag `security` to gain immediate attention from contributors and maintainers. If you have a fix, please create a pr with the appropriate tags. You can expect me(rvsfirecreeper) or another maintainer to review it in 1-2 days.
+Create an issue with the label `security` to gain immediate attention from contributors and maintainers. If you have a fix, please create a pr with the appropriate labels. You can expect me(rvsfirecreeper) or another maintainer to review it in 1-2 days.
