@@ -4,7 +4,6 @@ import math
 import time
 # Dependencies
 import argon2
-import pyperclip
 # Maxes for key 1, 2, and 3
 keymax = 10**40
 iterationmax = 50000
@@ -65,18 +64,14 @@ def choice():
     text = input("Enter text to en/decrypt: ")
     start = time.time()
     if user_choice == "ec":
-        output = ecdc(text, key, key2, initvector, iterations, 1)
-        return output
+            return f"The text is: {ecdc(text, key, key2, initvector, iterations, 1)} It took {round(time.time()-start)} seconds to encrypt."
     elif user_choice == "dc":
-        output = ecdc(text, key, key2, initvector, iterations, -1)
-        return output
+            return f"The text is: '{ecdc(text, key, key2, initvector, iterations, -1)}' It took {round(time.time()-start)} seconds to decrypt."
     else:
         print("Invalid choice")
         return choice()
 # Run the program
 result = choice()
 if result:
-    print(f"The text is: '{result}'")
-    pyperclip.copy(result)
-    print("Copied to clipboard")
+    print(result)
 input()

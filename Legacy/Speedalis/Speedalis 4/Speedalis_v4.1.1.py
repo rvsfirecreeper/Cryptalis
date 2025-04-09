@@ -4,7 +4,7 @@ import math
 import time
 # Dependencies
 import argon2
-import pyperclip
+
 # Maxes for key 1, 2, and 3
 # Characters
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
@@ -74,10 +74,10 @@ def choice():
     start = time.time()
     if user_choice == "ec":
         output = ecdc(text, key, key2, key3, initvector, 1)
-        return output
+        return f"It took {time.time() - start} to encrypt. the text is:{output}"
     elif user_choice == "dc":
         output = ecdc(text, key, key2, key3, initvector, -1)
-        return output
+        return f"It took {(time.time() - start)} seconds to decrypt. the text is:{output}"
     else:
         print("Invalid choice")
         return choice()
@@ -86,7 +86,5 @@ def choice():
 # Run the program
 result = choice()
 if result:
-    print (f"The text is: '{result}'")
-    pyperclip.copy(result)
-    print("Copied to clipboard")
+    print(result)
 input()
