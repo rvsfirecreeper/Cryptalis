@@ -1,2 +1,2 @@
-argon2-cffi
-pyperclip
+argon2-cffi>=23.1.0
+pyperclip>=1.9.0
