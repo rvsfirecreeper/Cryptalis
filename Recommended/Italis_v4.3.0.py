@@ -7,7 +7,7 @@ import argon2
 import pyperclip
 # Maxes for key 1, 2, and 3
 keymax = 10**40
-iterationmax = 50000
+iterationmax = 25000
 # Character set
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
            "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
@@ -26,6 +26,7 @@ def ecdc(encryptedtext, key, key2, position, iterations, ende):
     key = hash_key(key)
     key2 = hash_key(key2)
     position = hash_key(position)
+    iterations = (hash_key(iterations) % 25000) + 175000
     output = []
     for i in range(iterations):
         for j in range(len(encryptedtext)):
@@ -46,17 +47,13 @@ def ecdc(encryptedtext, key, key2, position, iterations, ende):
 # User Input Function
 def choice():
     try:
-        key = (input("Enter key (1): "))
-        key2 = (input("Enter key (2): "))
-        iterations = int(input("Enter key (3): "))
-        initvector = (input("Enter IV: "))
+        key = input("Enter key (1): ")
+        key2 = input("Enter key (2): ")
+        iterations = input("Enter key (3): ")
+        initvector = input("Enter IV: ")
         # Catch errors
         if key == key2:
             raise ValueError("Key 1 must be different than Key 2")
-        if iterations > iterationmax:
-            raise ValueError(f"Key 3 must be less than {iterationmax}")
-        if iterations  < 0:
-            raise ValueError("Iterations must be positive")
     except ValueError as e:
         print(f"ValueError: {e}.")
         return choice()
