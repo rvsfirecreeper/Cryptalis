@@ -60,8 +60,6 @@ def choice():
         key3 = (input("Enter key (3): "))
         initvector = input("Enter IV: ")
         # Catch errors
-        if key == "" or key2 == "" or key3 == "" or initvector == "":
-            raise ValueError("Keys and IV cannot be empty")
         if key == key2:
             raise ValueError("Key 1 and Key 2 cannot be the same, this will cause ZeroDivisionError")
     # Error Handling
