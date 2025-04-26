@@ -5,8 +5,8 @@
 Goes for both Speedalis and Italis, they are updated in parallel.
 | Version | Supported          |
 | ------- | ------------------ |
-| 4.1.x   | :white_check_mark: |
-| 4.2.x   | :white_check_mark: |
+| 4.1.x   | :x: |
+| 4.3.x   | :white_check_mark: |
 | < 4.1   | :x:                |
 
 ## Reporting a Vulnerabity
