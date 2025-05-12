@@ -1,6 +1,7 @@
 # Packages Installed: hashlib, math, time
 import hashlib
 import math
+import os
 import time
 # Dependencies
 import argon2
@@ -18,8 +19,8 @@ character_to_index = {char: idx for idx, char in enumerate(letters)}
 
 
 # Hashing function
-def hash_key(key):
-    salt = hashlib.sha256(str(key).encode()).digest()[:16]
+def hash_key(key, salt):
+    salt = hashlib.sha256(str(salt).encode()).digest()[:16]
     return int.from_bytes(
         argon2.low_level.hash_secret_raw(secret=key.encode(), salt=salt, type=argon2.Type.ID, time_cost=16,
                                          memory_cost=2 ** 16, parallelism=4, hash_len=32))
@@ -27,10 +28,29 @@ def hash_key(key):
 
 # En/Decryption function
 def ecdc(text, key, key2, key3, position, ende):
-    key = hash_key(key)
-    key2 = hash_key(key2)
-    key3 = hash_key(key3)
-    position = hash_key(position)
+    if ende == 1:
+        salt1 = os.urandom(16)
+        salt2 = os.urandom(16)
+        salt3 = os.urandom(16)
+        salt4 = os.urandom(16)
+    else:
+    # Decryption: Extract the salts from the text
+        try:
+            encrypted_part = text.split("=/|=|--")[0]
+            salt_section = text.split("=/|=|--")[1]
+            salts = salt_section.split("|")
+            salt1 = bytes.fromhex(salts[0])
+            salt2 = bytes.fromhex(salts[1])
+            salt3 = bytes.fromhex(salts[2])
+            salt4 = bytes.fromhex(salts[3])
+            text = encrypted_part  # Only keep the actual encrypted data
+        except Exception as e:
+             raise ValueError(f"Salt extraction failed: {e}")
+
+    key = hash_key(key, salt1)
+    key2 = hash_key(key2, salt2)
+    key3 = hash_key(key3, salt3)
+    position = hash_key(position, salt4)
     # Precomputed Values
     pc1 = (ende * key)
     pc2 = key - key2
@@ -47,10 +67,17 @@ def ecdc(text, key, key2, key3, position, ende):
             position = (position + charval + key3) % abs(position + pc2)
         else:
             position = (position + outletter + key3) % abs(position + pc2)
+    if ende == 1:
+        output.append("=/|=|--")
+        output.append(salt1.hex())
+        output.append("|")
+        output.append(salt2.hex())
+        output.append("|")
+        output.append(salt3.hex())
+        output.append("|")
+        output.append(salt4.hex())
     output = "".join(output)
     return output
-
-
 # User Input Function
 def choice():
     try:
@@ -71,6 +98,7 @@ def choice():
     text = input("Enter text to en/decrypt: ")
     start = time.time()
     if user_choice == "ec":
+
         output = ecdc(text, key, key2, key3, initvector, 1)
         return output
     elif user_choice == "dc":
